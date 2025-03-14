@@ -1,0 +1,29 @@
+import decimal
+from decimal import Decimal
+
+# Chudnovsky Algorithm
+def pi(terms=1000):  # Set number of terms to calculate Pi
+    C = 426880 * Decimal(10005).sqrt()
+    M = 1
+    L = 13591409
+    X = 1
+    K = 6
+    S = L
+    
+    for i in range(1, terms):  # Loop over the number of terms
+        M = (K ** 3 - 16 * K) * M // i ** 3
+        L += 545140134
+        X *= -262537412640768000
+        K += 12
+        S += Decimal(M * L) / X
+    
+    pi_value = C / S
+    return pi_value
+
+# Set the precision of Decimal (higher means more digits of Pi)
+decimal.getcontext().prec = 1000  # Adjust for higher precision
+
+# Calculate Pi using the Chudnovsky Algorithm
+pi_value = pi(terms=1000)  # You can adjust the number of terms for more accuracy
+
+print(f"Calculated Pi: {pi_value}")
